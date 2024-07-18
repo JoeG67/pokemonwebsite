@@ -3,7 +3,7 @@ import { Pokemon } from './Pokemon'; // Import Pokemon interface
 
 interface CardProps {
   url: string;
-  onOpenPopup: () => void; // Callback to open the popup
+  onOpenPopup: (pokemon: Pokemon) => void;
 }
 
 const Card: React.FC<CardProps> = ({ url, onOpenPopup }) => {
@@ -36,28 +36,27 @@ const Card: React.FC<CardProps> = ({ url, onOpenPopup }) => {
 
   useEffect(() => {
     const pokemonIndex = url.split('/')[url.split('/').length - 2];
-    const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonIndex}.png`;
-
     fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonIndex}/`)
       .then(response => response.json())
       .then(data => {
-        setPokemon({
+        const fetchedPokemon = {
           name: data.name.charAt(0).toUpperCase() + data.name.slice(1),
           id: data.id,
           types: data.types.map((type: any) => ({
             name: type.type.name.charAt(0).toUpperCase() + type.type.name.slice(1),
           })),
-        });
+        };
+        setPokemon(fetchedPokemon);
       })
       .catch(error => console.log(error));
   }, [url]);
 
-  const handleOpenPopup = () => {
-    onOpenPopup(); // Call the callback to open the popup
+  const handleCardClick = () => {
+    onOpenPopup(pokemon);
   };
 
   return (
-    <div className="card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl" onClick={handleOpenPopup}>
+    <div className="card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl" onClick={handleCardClick}>
       <div className="pokemon-image relative border-b-2 border-black">
         <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`} alt={pokemon.name} className="mx-auto" />
       </div>

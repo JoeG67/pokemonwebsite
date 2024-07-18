@@ -22,7 +22,8 @@ function App() {
       .catch(error => console.log(error));
   }, [limit]);
 
-  const handleOpenPopup = () => {
+  const handleOpenPopup = (pokemon: Pokemon) => {
+    setSelectedPokemon(pokemon);
     setShowPopup(true);
   };
 
@@ -31,45 +32,21 @@ function App() {
     setSelectedPokemon(null);
   };
 
-  const handlePokemonClick = (pokemonUrl: string) => {
-    fetch(pokemonUrl)
-      .then(response => response.json())
-      .then(data => {
-        setSelectedPokemon({
-          name: data.name.charAt(0).toUpperCase() + data.name.slice(1),
-          id: data.id,
-          types: data.types.map((type: any) => ({
-            name: type.type.name.charAt(0).toUpperCase() + type.type.name.slice(1),
-          })),
-        });
-        handleOpenPopup(); // Open the popup when Pokemon is selected
-      })
-      .catch(error => console.log(error));
-  };
-
   return (
-    <div className="App bg-gray-100 min-h-screen py-8">
+    <div className="App bg-red-400 min-h-screen py-8">
       <header className="App-header text-center">
-        <h1 className="text-4xl font-bold text-gray-800">Pokedex Website</h1>
+        <h1 className="text-4xl font-bold text-gray-800">Pokedex</h1>
       </header>
       <div className="max-w-5xl mx-auto mt-8 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {pokemonList.map(pokemon => (
-          <div key={pokemon.url} onClick={() => handlePokemonClick(pokemon.url)}>
+          <div key={pokemon.url}>
             <Card url={pokemon.url} onOpenPopup={handleOpenPopup} />
           </div>
         ))}
       </div>
 
-      {/* Popup for PokemonDetails */}
       {showPopup && selectedPokemon && (
-        <div className="popup-container">
-          <div className="popup">
-            <span className="close-popup" onClick={handleClosePopup}>
-              &times;
-            </span>
-            <PokemonDetails pokemon={selectedPokemon} onClose={handleClosePopup} />
-          </div>
-        </div>
+        <PokemonDetails pokemon={selectedPokemon} onClose={handleClosePopup} />
       )}
     </div>
   );
