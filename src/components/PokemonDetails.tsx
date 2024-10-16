@@ -63,10 +63,10 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({ pokemon, onClose }) => 
             ))}
           </div>
           <div className="text-left">
-            <h4 className="text-xl font-bold mb-2">Abilities</h4>
+            <h4 className="text-xl font-bold mb-2">Abilities (Hidden Ability in Red)</h4>
             <ul className="list-disc list-inside mb-4">
               {abilities.map((ability, index) => (
-                <li key={index} className="text-gray-700">
+                <li key={index} className="text-gray-700 ">
                   {ability.ability.name.charAt(0).toUpperCase() + ability.ability.name.slice(1)}
                   {ability.is_hidden && <span className="text-red-500 ml-2">(Hidden)</span>}
                 </li>

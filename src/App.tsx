@@ -11,7 +11,7 @@ function App() {
   const [pokemonList, setPokemonList] = useState<PokemonListItem[]>([]);
   const [selectedPokemon, setSelectedPokemon] = useState<Pokemon | null>(null);
   const [showPopup, setShowPopup] = useState(false);
-  const limit = 150; // Set the number of Pokemon to load
+  const limit = 500; // Set the number of Pokemon to load
 
   useEffect(() => {
     fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}`)
@@ -33,7 +33,7 @@ function App() {
   };
 
   return (
-    <div className="App bg-red-400 min-h-screen py-8">
+    <div className="App bg-gradient-to-t from-red-200 to-red-600 min-h-screen py-8">
       <header className="App-header text-center">
         <h1 className="text-4xl font-bold text-gray-800">Pokedex</h1>
       </header>
