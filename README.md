@@ -22,7 +22,7 @@ Welcome to the Pokedex Project! This project is a web-based application that dis
 
 ## Demo
 
-Check out the live demo of the project [here](https://your-demo-link.com).
+Will add in link when available
 
 ## Installation
 
