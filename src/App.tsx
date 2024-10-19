@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Card from './components/Card';
 import { Pokemon } from './components/Pokemon'; // Import Pokemon interface
 import PokemonDetails from './components/PokemonDetails';
+import { PokemonDetailsProvider } from './store/Pokemon';
 
 interface PokemonListItem {
   url: string;
@@ -33,6 +34,7 @@ function App() {
   };
 
   return (
+    <PokemonDetailsProvider>
     <div className="App bg-gradient-to-t from-red-200 to-red-600 min-h-screen py-8">
       <header className="App-header text-center">
         <h1 className="text-4xl font-bold text-gray-800">Pokedex</h1>
@@ -49,6 +51,7 @@ function App() {
         <PokemonDetails pokemon={selectedPokemon} onClose={handleClosePopup} />
       )}
     </div>
+    </PokemonDetailsProvider>
   );
 }
 
