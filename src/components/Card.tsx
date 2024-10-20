@@ -56,11 +56,11 @@ const Card: React.FC<CardProps> = ({ url, onOpenPopup }) => {
   };
 
   return (
-    <div className="card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl" onClick={handleCardClick}>
-      <div className="pokemon-image relative border-b-2 border-black">
+    <div className="card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl border border-black" onClick={handleCardClick}>
+      <div className="pokemon-image relative">
         <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`} alt={pokemon.name} className="mx-auto" />
       </div>
-      <div className="p-4 bg-yellow-100">
+      <div className="p-4 bg-yellow-100 border-t border-black">
         <p className="text-gray-600 font-bold mb-2">NO: {pokemon.id}</p>
         <h3 className="text-xl font-bold mb-2">{pokemon.name}</h3>
         <div className="flex flex-wrap">

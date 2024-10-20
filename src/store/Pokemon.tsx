@@ -1,4 +1,3 @@
-// PokemonDetailsStore.tsx
 import React, { createContext, useState, useContext, useEffect } from 'react';
 
 interface Ability {
