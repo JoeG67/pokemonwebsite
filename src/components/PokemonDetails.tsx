@@ -32,24 +32,18 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({
       onClick={handleOverlayClick}
     >
       <div className="bg-white p-4 rounded-lg max-w-md w-full relative">
-        <div>
-          {" "}
-          <button
-            onClick={onClose}
-            className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl"
-          >
-            &times;
-          </button>
-        </div>
         <div className="text-center">
           <p className="text-gray-600 font-bold mb-2">NO: {pokemon.id}</p>
         </div>
         <div className="text-center">
-          <div>          <img
-            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
-            alt={pokemon.name}
-            className="mx-auto w-1/2" // Adjust the width here to reduce image size by half
-          /></div>
+          <div>
+            {" "}
+            <img
+              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
+              alt={pokemon.name}
+              className="mx-auto w-1/2" // Adjust the width here to reduce image size by half
+            />
+          </div>
 
           <h3 className="text-2xl font-bold mb-2">{pokemon.name}</h3>
           <div className="flex justify-center mb-4">
@@ -87,7 +81,11 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({
                         stat.stat.name.slice(1)}
                     </span>
                   </div>
-                  <div className="flex-1 h-8 relative rounded-lg overflow-hidden bg-gray-200">
+                  <div
+                    className={`flex-1 h-8 relative rounded-lg overflow-hidden ${
+                      statColors[stat.stat.name.toLowerCase()] // Outer background color
+                    } bg-opacity-20`} // Optional opacity for a lighter shade
+                  >
                     <div
                       className={`absolute inset-0 ${
                         statColors[stat.stat.name.toLowerCase()]
@@ -141,12 +139,12 @@ const typeColors: { [key: string]: string } = {
 
 // Stat colors for individual stats (no change here)
 const statColors: { [key: string]: string } = {
-  hp: "bg-red-400",
-  attack: "bg-yellow-500",
-  defense: "bg-green-400",
-  "special-attack": "bg-blue-400",
-  "special-defense": "bg-indigo-400",
-  speed: "bg-purple-400",
+  hp: "bg-[#69DC12]", // HP color updated
+  attack: "bg-[#EFCC18]", // Attack color updated
+  defense: "bg-[#E86412]", // Defense color updated
+  "special-attack": "bg-[#14C3F1]", // Special Attack color updated
+  "special-defense": "bg-[#4A6ADF]", // Special Defense color updated
+  speed: "bg-[#D51DAD]", // Speed color updated
 };
 
 export default PokemonDetails;
