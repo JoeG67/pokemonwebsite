@@ -107,8 +107,7 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({
                   <span className="font-bold">Total Stats</span>
                 </div>
                 <div className="flex-1">
-                  <span>{totalStats}</span>
-                </div>
+                <span className={getTotalStatsTextColor(totalStats)}>{totalStats}</span>                </div>
               </div>
             </div>
           </div>
@@ -155,6 +154,21 @@ const getStatTextColor = (statValue: number) => {
     return "text-orange-500"; // High stats - blue text
   }
 };
+
+const getTotalStatsTextColor = (totalStats: number) => {
+  if (totalStats <= 300) {
+    return "text-red-500"; // Low total stats - red text
+  } else if (totalStats <= 400) {
+    return "text-yellow-500"; // Mid-low total stats - yellow text
+  } else if (totalStats <= 500) {
+    return "text-green-500"; // Mid total stats - green text
+  } else if (totalStats <= 600) {
+    return "text-blue-500"; // Mid-high total stats - blue text
+  } else {
+    return "text-purple-500"; // High total stats - purple text
+  }
+};
+
 
 
 export default PokemonDetails;
