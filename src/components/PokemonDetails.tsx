@@ -59,45 +59,48 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({
             ))}
           </div>
           <div className="text-left">
-            <h4 className="text-xl font-bold mb-2">Abilities</h4>
-            <ul className="list-disc list-inside mb-4">
-              {abilities.map((ability, index) => (
-                <li key={index} className="text-gray-700 ">
-                  {ability.ability.name.charAt(0).toUpperCase() +
-                    ability.ability.name.slice(1)}
-                  {ability.is_hidden && (
-                    <span className="text-red-500 ml-2">(Hidden)</span>
-                  )}
-                </li>
-              ))}
-            </ul>
+          <h4 className="text-xl font-bold mb-2">Abilities</h4>
+<div className="flex flex-wrap mb-4">
+  {abilities.map((ability, index) => (
+    <div
+      key={index}
+      className="flex items-center mr-4 mb-2"
+    >
+      <span className="text-gray-700 font-medium capitalize">
+        {ability.ability.name.charAt(0).toUpperCase() +
+          ability.ability.name.slice(1)}
+      </span>
+      {ability.is_hidden && (
+        <span className="text-red-500 ml-2">(Hidden)</span>
+      )}
+    </div>
+  ))}
+</div>
             <h4 className="text-xl font-bold mb-2">Stats</h4>
             <div className="grid grid-cols-2 gap-4 mb-4">
-              {stats.map((stat, index) => (
-                <div key={index} className="flex items-center">
-                  <div className="w-32">
-                    <span className="font-bold">
-                      {stat.stat.name.charAt(0).toUpperCase() +
-                        stat.stat.name.slice(1)}
-                    </span>
-                  </div>
-                  <div
-                    className={`flex-1 h-8 relative rounded-lg overflow-hidden ${
-                      statColors[stat.stat.name.toLowerCase()] // Outer background color
-                    } bg-opacity-20`} // Optional opacity for a lighter shade
-                  >
-                    <div
-                      className={`absolute inset-0 ${
-                        statColors[stat.stat.name.toLowerCase()]
-                      } text-black`}
-                      style={{ width: `${(stat.base_stat / 250) * 100}%` }}
-                    >
-                      <span className="absolute left-2">{stat.base_stat}</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+  {stats.map((stat, index) => (
+    <div key={index} className="flex items-center">
+      {/* Stat Name */}
+      <div className="w-32">
+        <span className="font-bold capitalize">{stat.stat.name}</span>
+      </div>
+
+      {/* Stat Bar */}
+      <div className="flex-1 h-8 relative rounded-lg overflow-hidden bg-opacity-20">
+        <div
+          className={`absolute inset-0 ${getStatTextColor(stat.base_stat)} text-black`}
+          style={{ width: `${(stat.base_stat / 250) * 100}%` }}
+        >
+          {/* Stat Value */}
+          <span className="absolute left-2 top-1/2 transform -translate-y-1/2 font-semibold">
+            {stat.base_stat}
+          </span>
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
+
             <div className="grid grid-cols-2 gap-4 mb-4">
               <div className="flex items-center">
                 <div className="w-32">
@@ -138,13 +141,20 @@ const typeColors: { [key: string]: string } = {
 };
 
 // Stat colors for individual stats (no change here)
-const statColors: { [key: string]: string } = {
-  hp: "bg-[#69DC12]", // HP color updated
-  attack: "bg-[#EFCC18]", // Attack color updated
-  defense: "bg-[#E86412]", // Defense color updated
-  "special-attack": "bg-[#14C3F1]", // Special Attack color updated
-  "special-defense": "bg-[#4A6ADF]", // Special Defense color updated
-  speed: "bg-[#D51DAD]", // Speed color updated
+
+const getStatTextColor = (statValue: number) => {
+  if (statValue <= 50) {
+    return "text-red-500"; // Low stats - red text
+  } else if (statValue <= 100) {
+    return "text-yellow-500"; // Mid-low stats - orange text
+  } else if (statValue <= 150) {
+    return "text-green-500"; // Mid stats - yellow text
+  } else if (statValue <= 200) {
+    return "text-blue-500"; // Mid-high stats - green text
+  } else {
+    return "text-orange-500"; // High stats - blue text
+  }
 };
+
 
 export default PokemonDetails;
