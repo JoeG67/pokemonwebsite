@@ -55,7 +55,7 @@ function App() {
       </header>
       <div className="App bg-gradient-to-t from-red-600 to-red-400 min-h-screen py-8">
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-        <div className="max-w-5xl mx-auto mt-8 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <div className="max-w-6xl mx-auto mt-8 grid gap-6 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
           {filteredPokemonList.map((pokemon) => (
             <div key={pokemon.url}>
               <Card url={pokemon.url} onOpenPopup={handleOpenPopup} />
