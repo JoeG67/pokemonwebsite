@@ -59,22 +59,32 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({
             ))}
           </div>
           <div className="text-left">
-          <h4 className="text-xl font-bold mb-2">Abilities</h4>
+         
 <div className="flex flex-wrap mb-4">
-  {abilities.map((ability, index) => (
+<h4 className="text-xl font-bold mb-2">Abilities: </h4>
+{abilities.map((ability, index) => {
+  // Determine the background color based on hidden status and index
+  const bgColor = ability.is_hidden 
+    ? "bg-red-500 text-white font-bold text-sm" // Red for hidden abilities
+    : index % 2 === 0
+    ? "bg-blue-500 text-white font-bold text-sm" // Blue for even-indexed non-hidden abilities
+    : "bg-blue-300 text-white font-bold text-sm"; // Lighter blue for odd-indexed non-hidden abilities
+
+  return (
     <div
       key={index}
-      className="flex items-center mr-4 mb-2"
+      className={`flex items-center ml-4 mb-2 px-2 py-1 rounded-lg ${bgColor}`}
     >
-      <span className="text-gray-700 font-medium capitalize">
-        {ability.ability.name.charAt(0).toUpperCase() +
-          ability.ability.name.slice(1)}
+      <span className="capitalize font-bold text-sm">
+        {ability.ability.name.charAt(0).toUpperCase() + ability.ability.name.slice(1)}
       </span>
       {ability.is_hidden && (
-        <span className="text-red-500 ml-2">(Hidden)</span>
+        <span className="ml-2">(Hidden)</span> // Additional styling if needed
       )}
     </div>
-  ))}
+  );
+})}
+
 </div>
             <h4 className="text-xl font-bold mb-2">Stats</h4>
             <div className="grid grid-cols-2 gap-4 mb-4">
