@@ -64,20 +64,21 @@ const Card: React.FC<CardProps> = ({ url, onOpenPopup }) => {
       className="mx-auto w-24 sm:w-32 md:w-40 lg:w-48 xl:w-56" 
     />
   </div>
-  <div className="p-4 bg-yellow-100 border-t border-black">
-    <p className="text-gray-600 font-bold text-sm sm:text-base md:text-lg lg:text-xl mb-2">NO: {pokemon.id}</p>
-    <h3 className="text-base font-bold sm:text-lg md:text-xl lg:text-2xl mb-2">{pokemon.name}</h3>
-    <div className="flex flex-wrap gap-2">
-      {pokemon.types.map((type, index) => (
-        <div
-          key={index}
-          className={`type-box ${typeColors[type.name.toLowerCase()] || 'bg-gray-300 text-gray-700'} px-2 py-1 rounded text-xs sm:text-sm md:text-base lg:text-lg font-bold`}
-        >
-          {type.name}
-        </div>
-      ))}
-    </div>
+  <div className="p-4 bg-yellow-100 border-t border-black flex flex-col items-center text-center">
+  {/* <p className="text-black font-bold text-sm sm:text-base md:text-lg lg:text-xl mb-2">NO: {pokemon.id}</p> */}
+  <h3 className="text-base font-bold sm:text-lg md:text-xl lg:text-2xl mb-2">{pokemon.name}</h3>
+  <div className="flex flex-wrap gap-2 justify-center">
+    {pokemon.types.map((type, index) => (
+      <div
+        key={index}
+        className={`type-box ${typeColors[type.name.toLowerCase()] || 'bg-gray-300 text-gray-700'} px-2 py-1 rounded text-xs sm:text-sm md:text-base lg:text-lg font-bold`}
+      >
+        {type.name}
+      </div>
+    ))}
   </div>
+</div>
+
 </div>
 
   );
