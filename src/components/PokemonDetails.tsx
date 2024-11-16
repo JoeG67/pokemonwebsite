@@ -31,12 +31,10 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({
       className="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center"
       onClick={handleOverlayClick}
     >
-      <div className="bg-white p-4 rounded-lg max-w-md w-full relative">
+      <div className="bg-red-100 p-4 rounded-lg max-w-md w-full relative">
+        <div className="text-center "></div>
         <div className="text-center">
-          <p className="text-gray-600 font-bold mb-2">NO: {pokemon.id}</p>
-        </div>
-        <div className="text-center">
-          <div>
+          <div className="border-black border-solid border-2 rounded bg-blue-100">
             {" "}
             <img
               src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
@@ -45,7 +43,11 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({
             />
           </div>
 
-          <h3 className="text-2xl font-bold mb-2">{pokemon.name}</h3>
+          <p className="text-black font-bold text-sm sm:text-base md:text-lg lg:text-2xl mb-2">
+            {pokemon.id}. 
+            <span className="text-2xl font-bold mb-2"> {pokemon.name} </span>
+          </p>
+
           <div className="flex justify-center mb-4">
             {pokemon.types.map((type, index) => (
               <span
@@ -59,65 +61,72 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({
             ))}
           </div>
           <div className="text-left">
-         
-<div className="flex flex-wrap mb-4">
-<h4 className="text-xl font-bold mb-2">Abilities: </h4>
-{abilities.map((ability, index) => {
-  // Determine the background color based on hidden status and index
-  const bgColor = ability.is_hidden 
-    ? "bg-red-500 text-white font-bold text-sm" // Red for hidden abilities
-    : index % 2 === 0
-    ? "bg-blue-500 text-white font-bold text-sm" // Blue for even-indexed non-hidden abilities
-    : "bg-blue-300 text-white font-bold text-sm"; // Lighter blue for odd-indexed non-hidden abilities
+            <div className="flex flex-wrap mb-4 border-black border-solid border-2 rounded">
+              <h4 className="text-xl font-bold my-2 ml-2">Abilities: </h4>
+              {abilities.map((ability, index) => {
+                // Determine the background color based on hidden status and index
+                const bgColor = ability.is_hidden
+                  ? "bg-red-500 text-white font-bold text-sm" // Red for hidden abilities
+                  : index % 2 === 0
+                  ? "bg-blue-500 text-white font-bold text-sm" // Blue for even-indexed non-hidden abilities
+                  : "bg-blue-300 text-white font-bold text-sm"; // Lighter blue for odd-indexed non-hidden abilities
 
-  return (
-    <div
-      key={index}
-      className={`flex items-center ml-4 mb-2 px-2 py-1 rounded-lg ${bgColor}`}
-    >
-      <span className="capitalize font-bold text-sm">
-        {ability.ability.name.charAt(0).toUpperCase() + ability.ability.name.slice(1)}
-      </span>
-      {ability.is_hidden && (
-        <span className="ml-2">(Hidden)</span> // Additional styling if needed
-      )}
-    </div>
-  );
-})}
-
-</div>
+                return (
+                  <div
+                    key={index}
+                    className={`flex items-center mx-4 my-2 px-2 py-1 rounded-lg ${bgColor}`}
+                  >
+                    <span className="capitalize font-bold text-sm">
+                      {ability.ability.name.charAt(0).toUpperCase() +
+                        ability.ability.name.slice(1)}
+                    </span>
+                    {ability.is_hidden && (
+                      <span className="ml-2">(Hidden)</span> // Additional styling if needed
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+            <div className="">
             <h4 className="text-xl font-bold mb-2">Stats</h4>
             <div className="grid grid-cols-2 gap-4 mb-4">
-  {stats.map((stat, index) => (
-    <div key={index} className="flex items-center">
-      {/* Stat Name */}
-      <div className="w-32">
-        <span className="font-bold capitalize">{stat.stat.name}</span>
-      </div>
+              {stats.map((stat, index) => (
+                <div key={index} className="flex items-center">
+                  {/* Stat Name */}
+                  <div className="w-32">
+                    <span className="font-bold capitalize">
+                      {stat.stat.name}
+                    </span>
+                  </div>
 
-      {/* Stat Bar */}
-      <div className="flex-1 h-8 relative rounded-lg overflow-hidden bg-opacity-20">
-        <div
-          className={`absolute inset-0 ${getStatTextColor(stat.base_stat)} text-black`}
-          style={{ width: `${(stat.base_stat / 250) * 100}%` }}
-        >
-          {/* Stat Value */}
-          <span className="absolute left-2 top-1/2 transform -translate-y-1/2 font-semibold">
-            {stat.base_stat}
-          </span>
-        </div>
-      </div>
-    </div>
-  ))}
-</div>
-
+                  {/* Stat Bar */}
+                  <div className="flex-1 h-8 relative rounded-lg overflow-hidden bg-opacity-20">
+                    <div
+                      className={`absolute inset-0 font-bold ${getStatTextColor(
+                        stat.base_stat
+                      )} text-black`}
+                      style={{ width: `${(stat.base_stat / 250) * 100}%` }}
+                    >
+                      {/* Stat Value */}
+                      <span className="absolute left-2 top-1/2 transform -translate-y-1/2 font-bold">
+                        {stat.base_stat}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            </div>
             <div className="grid grid-cols-2 gap-4 mb-4">
               <div className="flex items-center">
                 <div className="w-32">
                   <span className="font-bold">Total Stats</span>
                 </div>
-                <div className="flex-1">
-                <span className={getTotalStatsTextColor(totalStats)}>{totalStats}</span>                </div>
+                <div className="flex-1 font-bold">
+                  <span className={getTotalStatsTextColor(totalStats)}>
+                    {totalStats}
+                  </span>{" "}
+                </div>
               </div>
             </div>
           </div>
@@ -153,7 +162,7 @@ const typeColors: { [key: string]: string } = {
 
 const getStatTextColor = (statValue: number) => {
   if (statValue <= 50) {
-    return "text-red-500"; // Low stats - red text
+    return "text-red-500 font-bol"; // Low stats - red text
   } else if (statValue <= 100) {
     return "text-yellow-500"; // Mid-low stats - orange text
   } else if (statValue <= 150) {
@@ -178,7 +187,5 @@ const getTotalStatsTextColor = (totalStats: number) => {
     return "text-purple-500"; // High total stats - purple text
   }
 };
-
-
 
 export default PokemonDetails;
