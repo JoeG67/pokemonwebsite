@@ -48,8 +48,8 @@ function App() {
 
   return (
     <PokemonDetailsProvider>
-      <header className="App-header text-center !bg-white">
-        <h1 className="text-4xl font-bold text-gray-800">Pokedex</h1>
+      <header className="App-header text-center bg-white">
+        <h1 className="text-4xl font-bold font-mono text-gray-800">Pokedex</h1>
       </header>
       <div className="App bg-red-600 min-h-screen py-8">
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
