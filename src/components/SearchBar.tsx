@@ -25,7 +25,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ searchTerm, setSearchTerm }) => {
           focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-400
           hover:border-black 
           transition-all duration-200 ease-in-out
-          shadow-sm hover:shadow-md
+          shadow-sm hover:shadow-md font-mono
         "
         />
       </div>
