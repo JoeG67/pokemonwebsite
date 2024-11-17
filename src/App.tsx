@@ -50,9 +50,9 @@ function App() {
     <PokemonDetailsProvider>
       <header className="App-header text-center bg-white">
         <h1 className="text-4xl font-bold font-mono text-gray-800">Pokedex</h1>
+        <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       </header>
       <div className="App bg-red-600 min-h-screen py-8">
-      <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         <div className="max-w-6xl mx-auto mt-8 grid gap-6 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
           {filteredPokemonList.map((pokemon) => (
             <div key={pokemon.url}>
