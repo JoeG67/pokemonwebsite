@@ -8,17 +8,18 @@ interface SearchBarProps {
 
 const SearchBar: React.FC<SearchBarProps> = ({ searchTerm, setSearchTerm }) => {
   return (
-    <div className="flex justify-center mt-6">
-      <div className="relative w-80">
-        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-          <FaSearch />
-        </span>
-        <input
-          type="text"
-          placeholder="Search Pokémon"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="
+    <section>
+      <div className="flex justify-center my-4">
+        <div className="relative w-80">
+          <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+            <FaSearch />
+          </span>
+          <input
+            type="text"
+            placeholder="Search Pokémon"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="
           w-full px-10 py-2 
           border border-black rounded-full 
           text-gray-800 bg-white placeholder-gray-400 
@@ -27,9 +28,10 @@ const SearchBar: React.FC<SearchBarProps> = ({ searchTerm, setSearchTerm }) => {
           transition-all duration-200 ease-in-out
           shadow-sm hover:shadow-md font-mono
         "
-        />
+          />
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
