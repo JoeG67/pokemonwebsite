@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Pokemon } from './Pokemon'; // Import Pokemon interface
+import React, { useState, useEffect } from "react";
+import { Pokemon } from "./Pokemon"; // Import Pokemon interface
 
 interface CardProps {
   url: string;
@@ -8,14 +8,14 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ url, onOpenPopup }) => {
   const [pokemon, setPokemon] = useState<Pokemon>({
-    name: '',
+    name: "",
     id: 0,
     types: [],
   });
 
   const typeColors: { [key: string]: string } = {
     normal: "bg-[#9FA19F] text-white",
-    fire: "bg-[#E62829] text-white",
+    fire: "bg-[#E62823] text-white",
     water: "bg-[#2980EF] text-white",
     electric: "bg-[#FAC000] text-white",
     grass: "bg-[#588d2a] text-white",
@@ -35,52 +35,74 @@ const Card: React.FC<CardProps> = ({ url, onOpenPopup }) => {
   };
 
   useEffect(() => {
-    const pokemonIndex = url.split('/')[url.split('/').length - 2];
+    const pokemonIndex = url.split("/")[url.split("/").length - 2];
     fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonIndex}/`)
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         const fetchedPokemon = {
           name: data.name.charAt(0).toUpperCase() + data.name.slice(1),
           id: data.id,
           types: data.types.map((type: any) => ({
-            name: type.type.name.charAt(0).toUpperCase() + type.type.name.slice(1),
+            name:
+              type.type.name.charAt(0).toUpperCase() + type.type.name.slice(1),
           })),
         };
         setPokemon(fetchedPokemon);
       })
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
   }, [url]);
 
   const handleCardClick = () => {
     onOpenPopup(pokemon);
   };
 
+    const getCardBackground = () => {
+      if (pokemon.types.length === 1) {
+        return typeColors[pokemon.types[0].name.toLowerCase()] || "bg-gray-300";
+      }
+    
+      if (pokemon.types.length === 2) {
+        return typeColors[pokemon.types[0].name.toLowerCase()] || "bg-gray-300";
+      }
+    
+      return "bg-red-300"; // Default background for other cases
+    };
+
+
   return (
-<div className="card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl border border-black" onClick={handleCardClick}>
-  <div className="pokemon-image relative">
-    <img 
-      src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`} 
-      alt={pokemon.name} 
-      className="mx-auto w-24 sm:w-32 md:w-40 lg:w-48 xl:w-56" 
-    />
-  </div>
-  <div className="p-4 bg-yellow-100 border-t border-black flex flex-col items-center text-center">
-  {/* <p className="text-black font-bold text-sm sm:text-base md:text-lg lg:text-xl mb-2">NO: {pokemon.id}</p> */}
-  <h3 className="text-base font-bold font-mono sm:text-lg md:text-xl lg:text-2xl mb-2">{pokemon.name}</h3>
-  <div className="flex flex-wrap gap-2 justify-center">
-    {pokemon.types.map((type, index) => (
+    <section>
       <div
-        key={index}
-        className={`type-box ${typeColors[type.name.toLowerCase()] || 'bg-gray-300 text-gray-700'} px-2 py-1 rounded text-xs sm:text-sm md:text-base lg:text-lg font-bold font-mono`}
+        className="card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl border border-black"
+        onClick={handleCardClick}
       >
-        {type.name}
+        <div className="pokemon-image relative">
+          <img
+            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
+            alt={pokemon.name}
+            className="mx-auto w-8 sm:w-12 md:w-24 lg:w-32 xl:w-48"
+          />
+        </div>
+        <div className={`p-4 ${getCardBackground()} border-t  border-black flex flex-col items-center text-center`}>
+        {/* <p className="text-black font-bold text-sm sm:text-base md:text-lg lg:text-xl mb-2">NO: {pokemon.id}</p> */}
+          <h3 className="text-base text-black font-bold font-mono sm:text-lg md:text-xl lg:text-2xl mb-2">
+            {pokemon.name}
+          </h3>
+          <div className="flex flex-wrap gap-2 justify-center">
+            {pokemon.types.map((type, index) => (
+              <div
+                key={index}
+                className={`type-box ${
+                  typeColors[type.name.toLowerCase()] ||
+                  "bg-gray-300 text-gray-700"
+                } px-2 py-1 rounded text-xs sm:text-sm md:text-base lg:text-lg font-bold font-mono border-2 border-black`}
+              >
+                {type.name}
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
-    ))}
-  </div>
-</div>
-
-</div>
-
+    </section>
   );
 };
 
