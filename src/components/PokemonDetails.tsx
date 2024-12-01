@@ -75,7 +75,7 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({
             />
           </div>
 
-          <div className="text-left rounded">
+          <div>
             <div className="flex justify-center content-center">
               <h4 className="text-xl font-bold my-2 ml-2 font-mono text-black justify-center">
                 Abilities:{" "}
@@ -84,17 +84,17 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({
               {abilities.map((ability, index) => {
                 // Determine the background color based on hidden status and index
                 const bgColor = ability.is_hidden
-                  ? "bg-red-500 text-white font-bold text-xs font-mono border-black border-solid border-2" // Red for hidden abilities
+                  ? "bg-red-500 text-white font-bold font-mono border-black border-solid border-2" // Red for hidden abilities
                   : index % 2 === 0
-                  ? "bg-blue-500 text-white font-bold text-xs font-mono border-black border-solid border-2" // Blue for even-indexed non-hidden abilities
-                  : "bg-blue-300 text-white font-bold text-xs font-mono border-black border-solid border-2"; // Lighter blue for odd-indexed non-hidden abilities
+                  ? "bg-blue-500 text-white font-bold font-mono border-black border-solid border-2" // Blue for even-indexed non-hidden abilities
+                  : "bg-blue-300 text-white font-bold font-mono border-black border-solid border-2"; // Lighter blue for odd-indexed non-hidden abilities
 
                 return (
                   <div
                     key={index}
-                    className={`flex items-center flex-wrap mx-2 my-4 px-2 py-1 rounded-lg ${bgColor}`}
+                    className={` my-1 py-1 rounded-lg ${bgColor}`}
                   >
-                    <span className="capitalize font-bold text-xs">
+                    <span className="capitalize font-bold">
                       {ability.ability.name.charAt(0).toUpperCase() +
                         ability.ability.name.slice(1)}
                     </span>
@@ -180,17 +180,18 @@ const typeColors: { [key: string]: string } = {
 
 const getStatTextColor = (statValue: number) => {
   if (statValue <= 50) {
-    return "text-red-500"; // Low stats - red text
+    return "text-gray-500"; // Low stats - gray (neutral and distinct)
   } else if (statValue <= 100) {
-    return "text-orange-500"; // Mid-low stats - orange text
+    return "text-lime-500"; // Mid-low stats - lime (distinct from amber)
   } else if (statValue <= 150) {
-    return "text-green-500"; // Mid stats - green text
+    return "text-emerald-500"; // Mid stats - emerald (distinct from green)
   } else if (statValue <= 200) {
-    return "text-blue-500"; // Mid-high stats - blue text
+    return "text-cyan-500"; // Mid-high stats - cyan (distinct from blue)
   } else {
-    return "text-teal-500"; // High stats - teal text
+    return "text-violet-500"; // High stats - violet (distinct from teal)
   }
 };
+
 
 const getTotalStatsTextColor = (totalStats: number) => {
   if (totalStats <= 300) {
