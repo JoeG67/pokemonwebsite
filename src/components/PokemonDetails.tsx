@@ -40,17 +40,17 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({
 
   return (
     <div
-      className="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center"
-      onClick={handleOverlayClick}
+    className={`fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center 
+      transition-opacity duration-300 ease-in-out `}      onClick={handleOverlayClick}
     >
       <div
         className={`${getCardBackground()}  p-4 rounded-lg max-w-md w-full relative border-black border-solid border-2`}
       >
         <div className="text-center">
-          <div className="flex justify-center my-4 font-mono ">
-            <p className="text-black font-bold font-mono text-sm sm:text-base md:text-lg lg:text-2xl mb-2">
+          <div className="flex justify-center my-4 font-pokemon tracking-widest ">
+            <p className="text-black font-bold font-pokemon tracking-widest text-sm sm:text-base md:text-lg lg:text-2xl mb-2">
               #{pokemon.id}
-              <span className="text-2xl font-bold font-mono mb-2 mr-4">
+              <span className="text-2xl font-bold font-pokemon tracking-widest mb-2 mr-4">
                 {" "}
                 {pokemon.name}{" "}
               </span>
@@ -77,17 +77,17 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({
 
           <div>
             <div className="flex justify-center content-center">
-              <h4 className="text-xl font-bold my-2 ml-2 font-mono text-black justify-center">
+              <h4 className="text-xl font-bold my-2 ml-2 font-pokemon tracking-widest text-black justify-center">
                 Abilities:{" "}
               </h4>
               </div>
               {abilities.map((ability, index) => {
                 // Determine the background color based on hidden status and index
                 const bgColor = ability.is_hidden
-                  ? "bg-red-500 text-white font-bold font-mono border-black border-solid border-2" // Red for hidden abilities
+                  ? "bg-red-500 text-white font-bold font-pokemon tracking-widest border-black border-solid border-2" // Red for hidden abilities
                   : index % 2 === 0
-                  ? "bg-blue-500 text-white font-bold font-mono border-black border-solid border-2" // Blue for even-indexed non-hidden abilities
-                  : "bg-blue-300 text-white font-bold font-mono border-black border-solid border-2"; // Lighter blue for odd-indexed non-hidden abilities
+                  ? "bg-blue-500 text-white font-bold font-pokemon tracking-widest border-black border-solid border-2" // Blue for even-indexed non-hidden abilities
+                  : "bg-blue-300 text-white font-bold font-pokemon tracking-widest border-black border-solid border-2"; // Lighter blue for odd-indexed non-hidden abilities
 
                 return (
                   <div
@@ -111,7 +111,7 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({
                   <div key={index} className="flex items-center">
                     {/* Stat Name */}
                     <div className="w-32">
-                      <span className="font-bold capitalize font-mono text-black">
+                      <span className="font-bold capitalize font-pokemon tracking-widest text-black">
                         {stat.stat.name
                           .replace("special-attack", "Sp. Atk")
                           .replace("special-defense", "Sp. Def")}
@@ -127,7 +127,7 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({
                         style={{ width: `${(stat.base_stat / 250) * 100}%` }}
                       >
                         {/* Stat Value */}
-                        <span className="absolute left-2 top-1/2 transform -translate-y-1/2 font-bold font-mono">
+                        <span className="absolute left-2 top-1/2 transform -translate-y-1/2 font-bold font-pokemon tracking-widest">
                           {stat.base_stat}
                         </span>
                       </div>
@@ -139,9 +139,9 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({
             <div className="grid grid-cols-2 gap-4 mb-4">
               <div className="flex items-center">
                 <div className="w-32">
-                  <span className="font-bold font-mono text-black">Total Stats</span>
+                  <span className="font-bold font-pokemon tracking-widest text-black">Total Stats</span>
                 </div>
-                <div className="flex-1 font-bold font-mono">
+                <div className="font-bold font-pokemon tracking-widest">
                   <span className={getTotalStatsTextColor(totalStats)}>
                     {totalStats}
                   </span>{" "}

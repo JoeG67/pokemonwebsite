@@ -3,7 +3,7 @@ import Card from "./components/Card";
 import { Pokemon } from "./components/Pokemon";
 import PokemonDetails from "./components/PokemonDetails";
 import { PokemonDetailsProvider } from "./store/Pokemon";
-import SearchBar from "./components/SearchBar"; // Import SearchBar component
+import SearchBar from "./components/SearchBar";
 
 interface PokemonListItem {
   url: string;
@@ -50,31 +50,35 @@ function App() {
 
   return (
     <PokemonDetailsProvider>
-   <header className="App-header text-center bg-white">
-  <div className="flex items-center justify-between">
-    <div className="flex items-center px-2">
-      <img
-        src="https://www.pngarts.com/files/4/Pokeball-PNG-Image-Transparent-Background.png"
-        alt="Page Title"
-        className="h-12 w-12" 
-      />
-    </div>
+      <header className="App-header text-center bg-white">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center px-2">
+            <img
+              src="https://www.pngarts.com/files/4/Pokeball-PNG-Image-Transparent-Background.png"
+              alt="Page Title"
+              className="h-12 w-12"
+            />
+          </div>
 
-    <div className="flex-1 flex justify-center">
-      <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-    </div>
+          <div className="flex-1 flex justify-center">
+            <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+          </div>
 
-    <div className="flex items-center px-2">
-      <a href="https://github.com/JoeG67" target="_blank" rel="noopener noreferrer">
-        <img
-          src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
-          alt="GitHub Link"
-          className="h-12 w-12" 
-        />
-      </a>
-    </div>
-  </div>
-</header>
+          <div className="flex items-center px-2">
+            <a
+              href="https://github.com/JoeG67"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
+                alt="GitHub Link"
+                className="h-12 w-12"
+              />
+            </a>
+          </div>
+        </div>
+      </header>
 
       <section>
         <div className="App bg-red-600 min-h-screen py-8">
