@@ -10,7 +10,11 @@ module.exports = {
     './src/**/*.tsx',
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        pokemon: ['"Pokemon Solid"', 'sans-serif'],
+      },
+    },
   },
   variants: {},
   plugins: [],
