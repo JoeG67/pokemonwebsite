@@ -113,6 +113,7 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({
                     <div className="w-32">
                       <span className="font-bold capitalize font-pokemon tracking-widest text-black">
                         {stat.stat.name
+                          .replace("hp", "Health")
                           .replace("special-attack", "Sp. Atk")
                           .replace("special-defense", "Sp. Def")}
                       </span>
@@ -121,13 +122,13 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({
                     {/* Stat Bar */}
                     <div className="flex-1 h-8 relative rounded-lg overflow-hidden bg-opacity-20">
                       <div
-                        className={`absolute inset-0 font-bold ${getStatTextColor(
+                        className={`absolute inset-0 font-bold  ${getStatTextColor(
                           stat.base_stat
                         )} text-black`}
                         style={{ width: `${(stat.base_stat / 250) * 100}%` }}
                       >
                         {/* Stat Value */}
-                        <span className="absolute left-2 top-1/2 transform -translate-y-1/2 font-bold font-pokemon tracking-widest">
+                        <span className="absolute left-2 top-1/2 transform -translate-y-1/2 font-bold font-pokemon text-shadow-lg tracking-widest">
                           {stat.base_stat}
                         </span>
                       </div>
@@ -139,7 +140,7 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({
             <div className="grid grid-cols-2 gap-4 mb-4">
               <div className="flex items-center">
                 <div className="w-32">
-                  <span className="font-bold font-pokemon tracking-widest text-black">Total Stats</span>
+                  <span className="font-bold font-pokemon tracking-widest text-black">Total Stats: </span>
                 </div>
                 <div className="font-bold font-pokemon tracking-widest">
                   <span className={getTotalStatsTextColor(totalStats)}>
@@ -157,12 +158,12 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({
 // Type colors for Pokemon types (no change here)
 const typeColors: { [key: string]: string } = {
   normal: "bg-[#9FA19F] text-white",
-  fire: "bg-[#E62829] text-white",
-  water: "bg-[#2980EF] text-white",
+  fire: "bg-[#E03A3A] text-white",
+  water: "bg-[#1e90ff] text-white",
   electric: "bg-[#FAC000] text-white",
-  grass: "bg-[#588d2a] text-white",
+  grass: "bg-[#50C878] text-white",
   ice: "bg-[#3DCEF3] text-white",
-  fighting: "bg-[#FF8000] text-white",
+  fighting: "bg-[#bf5858] text-white",
   poison: "bg-[#9141CB] text-white",
   ground: "bg-[#915121] text-white",
   flying: "bg-[#81B9EF] text-white",
@@ -170,7 +171,7 @@ const typeColors: { [key: string]: string } = {
   bug: "bg-[#91A119] text-white",
   rock: "bg-[#AFA981] text-white",
   ghost: "bg-[#704170] text-white",
-  dragon: "bg-[#5060E1] text-white",
+  dragon: "bg-[#882eff] text-white",
   dark: "bg-[#624D4E] text-white",
   steel: "bg-[#60A1B8] text-white",
   fairy: "bg-[#EF70EF] text-white",
@@ -180,32 +181,30 @@ const typeColors: { [key: string]: string } = {
 
 const getStatTextColor = (statValue: number) => {
   if (statValue <= 50) {
-    return "text-gray-500"; // Low stats - gray (neutral and distinct)
+    return "text-neutral-700";
   } else if (statValue <= 100) {
-    return "text-lime-500"; // Mid-low stats - lime (distinct from amber)
+    return "text-lime-700";
   } else if (statValue <= 150) {
-    return "text-emerald-500"; // Mid stats - emerald (distinct from green)
+    return "text-emerald-700";
   } else if (statValue <= 200) {
-    return "text-cyan-500"; // Mid-high stats - cyan (distinct from blue)
+    return "text-cyan-700";
   } else {
-    return "text-violet-500"; // High stats - violet (distinct from teal)
+    return "text-violet-700";
   }
 };
-
 
 const getTotalStatsTextColor = (totalStats: number) => {
   if (totalStats <= 300) {
-    return "text-pink-500"; // Low total stats - pink text
+    return "text-pink-500";
   } else if (totalStats <= 400) {
-    return "text-yellow-500"; // Mid-low total stats - yellow text
+    return "text-yellow-500";
   } else if (totalStats <= 500) {
-    return "text-indigo-500"; // Mid total stats - indigo text
+    return "text-green-100";
   } else if (totalStats <= 600) {
-    return "text-black"; // Mid-high total stats - black text
+    return "text-neutral-900";
   } else {
-    return "text-purple-500"; // High total stats - purple text
+    return "text-purple-500";
   }
 };
-
 
 export default PokemonDetails;
