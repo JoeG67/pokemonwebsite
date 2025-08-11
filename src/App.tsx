@@ -12,9 +12,7 @@ interface PokemonListItem {
 
 function App() {
   const [pokemonList, setPokemonList] = useState<PokemonListItem[]>([]);
-  const [filteredPokemonList, setFilteredPokemonList] = useState<
-    PokemonListItem[]
-  >([]);
+  const [filteredPokemonList, setFilteredPokemonList] = useState<PokemonListItem[]>([]);
   const [selectedPokemon, setSelectedPokemon] = useState<Pokemon | null>(null);
   const [showPopup, setShowPopup] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -50,9 +48,9 @@ function App() {
 
   return (
     <PokemonDetailsProvider>
-      <header className="App-header text-center bg-white">
+      <header className="App-header text-center bg-[#e0e0e0]">
         <div className="flex items-center justify-between">
-          <div className="flex items-center px-2">
+          <div className="flex items-center px-10">
             <img
               src="https://www.pngarts.com/files/4/Pokeball-PNG-Image-Transparent-Background.png"
               alt="Page Title"
@@ -64,7 +62,7 @@ function App() {
             <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
           </div>
 
-          <div className="flex items-center px-2">
+          <div className="flex items-center px-10">
             <a
               href="https://github.com/JoeG67"
               target="_blank"
@@ -81,7 +79,7 @@ function App() {
       </header>
 
       <section>
-        <div className="App bg-red-600 min-h-screen py-8">
+        <div className="App bg-white min-h-screen py-8">
           <div className="max-w-6xl mx-auto mt-8 grid gap-6 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
             {filteredPokemonList.map((pokemon) => (
               <div key={pokemon.url}>
