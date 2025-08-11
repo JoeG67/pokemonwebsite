@@ -21,7 +21,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ searchTerm, setSearchTerm }) => {
             onChange={(e) => setSearchTerm(e.target.value)}
             className="
           w-full px-10 py-2 
-          border border-black rounded-full 
+          border border-black rounded-lg 
           text-gray-800 bg-white placeholder-gray-400 
           focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-400
           hover:border-black 
