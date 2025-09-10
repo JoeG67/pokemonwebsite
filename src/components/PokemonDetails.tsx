@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { usePokemonDetailsStore } from "../store/Pokemon"; // Import store hook
+import { usePokemonDetailsStore } from "../store/Pokemon";
 import { Pokemon } from "./Pokemon";
-
+import { typeColors } from "../constants/typeColors";
 interface PokemonDetailsProps {
   pokemon: Pokemon;
   onClose: () => void;
@@ -15,7 +15,7 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({
     usePokemonDetailsStore();
 
   useEffect(() => {
-    fetchPokemonDetails(pokemon.id); // Fetch details from the store when Pokemon changes
+    fetchPokemonDetails(pokemon.id);
   }, [pokemon.id, fetchPokemonDetails]);
 
   const handleOverlayClick = (
@@ -26,25 +26,14 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({
     }
   };
 
-  const getCardBackground = () => {
-    if (pokemon.types.length === 1) {
-      return typeColors[pokemon.types[0].name.toLowerCase()] || "bg-gray-300";
-    }
-
-    if (pokemon.types.length === 2) {
-      return typeColors[pokemon.types[0].name.toLowerCase()] || "bg-gray-300";
-    }
-
-    return "bg-red-300"; // Default background for other cases
-  };
-
   return (
     <div
-    className={`fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center 
-      transition-opacity duration-300 ease-in-out `}      onClick={handleOverlayClick}
+      className={`fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center 
+      transition-opacity duration-300 ease-in-out `}
+      onClick={handleOverlayClick}
     >
       <div
-        className={`${getCardBackground()}  p-4 rounded-lg max-w-md w-full relative border-black border-solid border-2`}
+        className={`bg-red-300 p-4 rounded-lg max-w-md w-full relative border-black border-solid border-2`}
       >
         <div className="text-center">
           <div className="flex justify-center my-4 font-pokemon tracking-widest ">
@@ -71,7 +60,7 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({
             <img
               src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
               alt={pokemon.name}
-              className="mx-auto w-1/2" // Adjust the width here to reduce image size by half
+              className="mx-auto w-1/2"
             />
           </div>
 
@@ -80,104 +69,73 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({
               <h4 className="text-xl font-bold my-2 ml-2 font-pokemon tracking-widest text-black justify-center">
                 Abilities:{" "}
               </h4>
-              </div>
-              {abilities.map((ability, index) => {
-                // Determine the background color based on hidden status and index
-                const bgColor = ability.is_hidden
-                  ? "bg-red-500 text-white font-bold font-pokemon tracking-widest border-black border-solid border-2" // Red for hidden abilities
-                  : index % 2 === 0
-                  ? "bg-blue-500 text-white font-bold font-pokemon tracking-widest border-black border-solid border-2" // Blue for even-indexed non-hidden abilities
-                  : "bg-blue-300 text-white font-bold font-pokemon tracking-widest border-black border-solid border-2"; // Lighter blue for odd-indexed non-hidden abilities
-
-                return (
-                  <div
-                    key={index}
-                    className={` my-1 py-1 rounded-lg ${bgColor}`}
-                  >
-                    <span className="capitalize font-bold">
-                      {ability.ability.name.charAt(0).toUpperCase() +
-                        ability.ability.name.slice(1)}
-                    </span>
-                    {ability.is_hidden && (
-                      <span className="ml-2">(Hidden)</span> // Additional styling if needed
-                    )}
-                  </div>
-                );
-              })}
             </div>
-            <div className="">
-              <div className="grid grid-cols-2 gap-4 mb-4 ">
-                {stats.map((stat, index) => (
-                  <div key={index} className="flex items-center">
-                    {/* Stat Name */}
-                    <div className="w-32">
-                      <span className="font-bold capitalize font-pokemon tracking-widest text-black">
-                        {stat.stat.name
-                          .replace("hp", "Health")
-                          .replace("special-attack", "Sp. Atk")
-                          .replace("special-defense", "Sp. Def")}
+            {abilities.map((ability, index) => {
+              const bgColor = ability.is_hidden
+                ? "bg-red-500 text-white font-bold font-pokemon tracking-widest border-black border-solid border-2" // Red for hidden abilities
+                : index % 2 === 0
+                ? "bg-blue-500 text-white font-bold font-pokemon tracking-widest border-black border-solid border-2" // Blue for even-indexed non-hidden abilities
+                : "bg-blue-300 text-white font-bold font-pokemon tracking-widest border-black border-solid border-2"; // Lighter blue for odd-indexed non-hidden abilities
+
+              return (
+                <div key={index} className={` my-1 py-1 rounded-lg ${bgColor}`}>
+                  <span className="capitalize font-bold">
+                    {ability.ability.name.charAt(0).toUpperCase() +
+                      ability.ability.name.slice(1)}
+                  </span>
+                  {ability.is_hidden && <span className="ml-2">(Hidden)</span>}
+                </div>
+              );
+            })}
+          </div>
+          <div className="">
+            <div className="grid grid-cols-2 gap-4 mb-4 ">
+              {stats.map((stat, index) => (
+                <div key={index} className="flex items-center">
+                  <div className="w-32">
+                    <span className="font-bold capitalize font-pokemon tracking-widest text-black">
+                      {stat.stat.name
+                        .replace("hp", "Health")
+                        .replace("special-attack", "Sp. Atk")
+                        .replace("special-defense", "Sp. Def")}
+                    </span>
+                  </div>
+
+                  <div className="flex-1 h-8 relative rounded-lg overflow-hidden bg-opacity-20">
+                    <div
+                      className={`absolute inset-0 font-bold  ${getStatTextColor(
+                        stat.base_stat
+                      )} text-black`}
+                      style={{ width: `${(stat.base_stat / 250) * 100}%` }}
+                    >
+                      <span className="absolute left-2 top-1/2 transform -translate-y-1/2 font-bold font-pokemon text-shadow-lg tracking-widest">
+                        {stat.base_stat}
                       </span>
                     </div>
-
-                    {/* Stat Bar */}
-                    <div className="flex-1 h-8 relative rounded-lg overflow-hidden bg-opacity-20">
-                      <div
-                        className={`absolute inset-0 font-bold  ${getStatTextColor(
-                          stat.base_stat
-                        )} text-black`}
-                        style={{ width: `${(stat.base_stat / 250) * 100}%` }}
-                      >
-                        {/* Stat Value */}
-                        <span className="absolute left-2 top-1/2 transform -translate-y-1/2 font-bold font-pokemon text-shadow-lg tracking-widest">
-                          {stat.base_stat}
-                        </span>
-                      </div>
-                    </div>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
-            <div className="grid grid-cols-2 gap-4 mb-4">
-              <div className="flex items-center">
-                <div className="w-32">
-                  <span className="font-bold font-pokemon tracking-widest text-black">Total Stats: </span>
-                </div>
-                <div className="font-bold font-pokemon tracking-widest">
-                  <span className={getTotalStatsTextColor(totalStats)}>
-                    {totalStats}
-                  </span>{" "}
-                </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4 mb-4">
+            <div className="flex items-center">
+              <div className="w-32">
+                <span className="font-bold font-pokemon tracking-widest text-black">
+                  Total Stats:{" "}
+                </span>
+              </div>
+              <div className="font-bold font-pokemon tracking-widest">
+                <span className={getTotalStatsTextColor(totalStats)}>
+                  {totalStats}
+                </span>{" "}
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
   );
 };
-
-// Type colors for Pokemon types (no change here)
-const typeColors: { [key: string]: string } = {
-  normal: "bg-[#9FA19F] text-white",
-  fire: "bg-[#E03A3A] text-white",
-  water: "bg-[#1e90ff] text-white",
-  electric: "bg-[#FAC000] text-white",
-  grass: "bg-[#50C878] text-white",
-  ice: "bg-[#3DCEF3] text-white",
-  fighting: "bg-[#bf5858] text-white",
-  poison: "bg-[#9141CB] text-white",
-  ground: "bg-[#915121] text-white",
-  flying: "bg-[#81B9EF] text-white",
-  psychic: "bg-[#EF4179] text-white",
-  bug: "bg-[#91A119] text-white",
-  rock: "bg-[#AFA981] text-white",
-  ghost: "bg-[#704170] text-white",
-  dragon: "bg-[#882eff] text-white",
-  dark: "bg-[#624D4E] text-white",
-  steel: "bg-[#60A1B8] text-white",
-  fairy: "bg-[#EF70EF] text-white",
-};
-
-// Stat colors for individual stats (no change here)
 
 const getStatTextColor = (statValue: number) => {
   if (statValue <= 50) {
