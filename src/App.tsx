@@ -3,7 +3,7 @@ import Card from "./components/Card";
 import { Pokemon } from "./components/Pokemon";
 import PokemonDetails from "./components/PokemonDetails";
 import { PokemonDetailsProvider } from "./store/Pokemon";
-import SearchBar from "./components/SearchBar";
+import Header from "./components/Header";
 
 interface PokemonListItem {
   url: string;
@@ -12,7 +12,9 @@ interface PokemonListItem {
 
 function App() {
   const [pokemonList, setPokemonList] = useState<PokemonListItem[]>([]);
-  const [filteredPokemonList, setFilteredPokemonList] = useState<PokemonListItem[]>([]);
+  const [filteredPokemonList, setFilteredPokemonList] = useState<
+    PokemonListItem[]
+  >([]);
   const [selectedPokemon, setSelectedPokemon] = useState<Pokemon | null>(null);
   const [showPopup, setShowPopup] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -48,35 +50,11 @@ function App() {
 
   return (
     <PokemonDetailsProvider>
-      <header className="App-header text-center bg-[#e0e0e0]">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center px-10">
-            <img
-              src="https://www.pngarts.com/files/4/Pokeball-PNG-Image-Transparent-Background.png"
-              alt="Page Title"
-              className="h-12 w-12"
-            />
-          </div>
-
-          <div className="flex-1 flex justify-center">
-            <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-          </div>
-
-          <div className="flex items-center px-10">
-            <a
-              href="https://github.com/JoeG67"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
-                alt="GitHub Link"
-                className="h-12 w-12"
-              />
-            </a>
-          </div>
-        </div>
-      </header>
+      <Header
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        githubUrl="https://github.com/JoeG67"
+      />
 
       <section>
         <div className="App bg-white min-h-screen py-8">
