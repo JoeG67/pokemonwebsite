@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Card from "./components/Card";
 import { Pokemon } from "./components/Pokemon";
 import PokemonDetails from "./components/PokemonDetails";
 import { PokemonDetailsProvider } from "./store/Pokemon";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 interface PokemonListItem {
   url: string;
@@ -82,6 +83,7 @@ function App() {
           )}
         </div>
       </section>
+      <Footer />
     </PokemonDetailsProvider>
   );
 }
