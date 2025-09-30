@@ -18,9 +18,15 @@ function App() {
   const [selectedPokemon, setSelectedPokemon] = useState<Pokemon | null>(null);
   const [showPopup, setShowPopup] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const limit = 151;
+  const [limit, setLimit] = useState<number>(0);
 
   useEffect(() => {
+    if (limit === 0) {
+      setPokemonList([]);
+      setFilteredPokemonList([]);
+      return;
+    }
+
     fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}`)
       .then((response) => response.json())
       .then((data) => {
@@ -54,6 +60,8 @@ function App() {
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
         githubUrl="https://github.com/JoeG67"
+        limit={limit}
+        setLimit={setLimit}
       />
 
       <section>
