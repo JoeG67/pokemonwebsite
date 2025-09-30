@@ -5,6 +5,7 @@ import PokemonDetails from "./components/PokemonDetails";
 import { PokemonDetailsProvider } from "./store/Pokemon";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import { regionRanges } from "./constants/regions";
 
 interface PokemonListItem {
   url: string;
@@ -19,7 +20,18 @@ function App() {
   const [selectedPokemon, setSelectedPokemon] = useState<Pokemon | null>(null);
   const [showPopup, setShowPopup] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [limit, setLimit] = useState<number>(0);
+  const [region, setRegion] = useState("Kanto");
+
+  const [limit, setLimit] = useState(
+    regionRanges["Kanto"].end - regionRanges["Kanto"].start + 1
+  );
+  const [offset, setOffset] = useState(regionRanges["Kanto"].start - 1);
+
+  useEffect(() => {
+    const range = regionRanges[region];
+    setLimit(range.end - range.start + 1);
+    setOffset(range.start - 1);
+  }, [region]);
 
   useEffect(() => {
     if (limit === 0) {
@@ -28,15 +40,14 @@ function App() {
       return;
     }
 
-    fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}`)
+    fetch(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`)
       .then((response) => response.json())
       .then((data) => {
         setPokemonList(data.results);
         setFilteredPokemonList(data.results);
       })
       .catch((error) => console.log(error));
-  }, [limit]);
-
+  }, [offset, limit]);
   useEffect(() => {
     setFilteredPokemonList(
       pokemonList.filter((pokemon) =>
@@ -60,9 +71,8 @@ function App() {
       <Header
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
-        githubUrl="https://github.com/JoeG67"
-        limit={limit}
-        setLimit={setLimit}
+        region={region}
+        setRegion={setRegion}
       />
 
       <section>

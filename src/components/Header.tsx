@@ -4,17 +4,15 @@ import SearchBar from "./SearchBar";
 interface HeaderProps {
   searchTerm: string;
   setSearchTerm: (term: string) => void;
-  githubUrl: string;
-  limit: number;
-  setLimit: (limit: number) => void;
+  region: string;
+  setRegion: (region: string) => void;
 }
 
 const Header: React.FC<HeaderProps> = ({
   searchTerm,
   setSearchTerm,
-  githubUrl,
-  limit,
-  setLimit,
+  region,
+  setRegion,
 }) => {
   const [scrolled, setScrolled] = useState(false);
 
@@ -26,6 +24,18 @@ const Header: React.FC<HeaderProps> = ({
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const regions = [
+    "Kanto",
+    "Johto",
+    "Hoenn",
+    "Sinnoh",
+    "Unova",
+    "Kalos",
+    "Alola",
+    "Galar",
+    "Paldea",
+  ];
 
   return (
     <header
@@ -44,27 +54,21 @@ const Header: React.FC<HeaderProps> = ({
 
         <div className="flex-1 flex justify-center items-center gap-x-4">
           <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-          <input
-            type="number"
-            placeholder="Limit"
-            value={limit}
-            onChange={(e) => {
-              const value = Number(e.target.value);
-              setLimit(isNaN(value) || value < 0 ? 0 : value);
-            }}
-            className="border border-black rounded-full px-3 py-1 w-20 text-center font-pokemon bg-white shadow-sm
-            transition-transform duration-300 ease-in-out hover:scale-[1.1]"
-          />
         </div>
 
-        <div className="flex items-center px-10 ">
-          <a href={githubUrl} target="_blank" rel="noopener noreferrer">
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
-              alt="GitHub Link"
-              className="h-12 w-12 transition-transform duration-300 ease-in-out hover:scale-[1.1]"
-            />
-          </a>
+        <div className="flex items-center px-10">
+          <select
+            value={region}
+            onChange={(e) => setRegion(e.target.value)}
+            className="border border-black rounded-full px-3 py-1 font-pokemon bg-white shadow-sm
+            transition-transform duration-300 ease-in-out hover:scale-[1.1]"
+          >
+            {regions.map((r) => (
+              <option key={r} value={r}>
+                {r}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
     </header>
