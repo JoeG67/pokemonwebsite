@@ -65,7 +65,7 @@ function App() {
       />
 
       <section>
-        <div className="App bg-white min-h-screen py-8">
+        <div className="App bg-[#fef9ef] min-h-screen py-8">
           <div className="max-w-6xl mx-auto mt-8 grid gap-6 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
             {filteredPokemonList.map((pokemon) => (
               <div key={pokemon.url}>
