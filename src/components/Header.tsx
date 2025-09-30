@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SearchBar from "./SearchBar";
 
 interface HeaderProps {
@@ -16,8 +16,23 @@ const Header: React.FC<HeaderProps> = ({
   limit,
   setLimit,
 }) => {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <header className="App-header text-center bg-[#e0e0e0]">
+    <header
+      className={`App-header sticky top-0 z-50 text-center transition-colors duration-300 ${
+        scrolled ? "bg-red-300/90 shadow-md backdrop-blur" : "bg-red-500"
+      }`}
+    >
       <div className="flex items-center justify-between">
         <div className="flex items-center px-10">
           <img
@@ -41,7 +56,8 @@ const Header: React.FC<HeaderProps> = ({
             transition-transform duration-300 ease-in-out hover:scale-[1.1]"
           />
         </div>
-        <div className="flex items-center px-10">
+
+        <div className="flex items-center px-10 ">
           <a href={githubUrl} target="_blank" rel="noopener noreferrer">
             <img
               src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
