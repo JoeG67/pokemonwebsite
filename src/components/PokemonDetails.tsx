@@ -33,7 +33,9 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({
       onClick={handleOverlayClick}
     >
       <div
-        className={`bg-red-300 p-4 rounded-lg max-w-md w-full relative border-black border-solid border-2`}
+        className={`${
+          typeColors[pokemon.types[0].name.toLowerCase()] || "bg-gray-200"
+        } p-4 rounded-lg max-w-md w-full relative border-black border-solid border-2`}
       >
         <div className="text-center">
           <div className="flex justify-center my-4 font-pokemon tracking-widest ">
@@ -41,44 +43,44 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({
               #{pokemon.id}
               <span className="text-2xl font-bold font-pokemon tracking-widest mb-2 mr-4">
                 {" "}
-                {pokemon.name}{" "}
+                {pokemon.name}
               </span>
             </p>
             {pokemon.types.map((type, index) => (
               <span
                 key={index}
-                className={`px-2 py-1 rounded mr-2 font-bold  border-2 border-black ${
+                className={`px-2 py-1 rounded mr-2 font-bold border-2 border-black ${
                   typeColors[type.name.toLowerCase()]
-                }`}
+                } transition-all duration-300 ease-in-out hover:scale-[1.02]`}
               >
                 {type.name}
               </span>
             ))}
           </div>
           <div className="border-black border-solid border-2 rounded bg-blue-100">
-            {" "}
             <img
               src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
               alt={pokemon.name}
-              className="mx-auto w-1/2"
+              className="mx-auto w-1/2 transition-all duration-300 ease-in-out hover:scale-[1.02]"
             />
           </div>
-
           <div>
             <div className="flex justify-center content-center">
               <h4 className="text-xl font-bold my-2 ml-2 font-pokemon tracking-widest text-black justify-center">
-                Abilities:{" "}
+                Abilities:
               </h4>
             </div>
             {abilities.map((ability, index) => {
               const bgColor = ability.is_hidden
-                ? "bg-red-500 text-white font-bold font-pokemon tracking-widest border-black border-solid border-2" // Red for hidden abilities
+                ? "bg-red-500 text-white font-bold font-pokemon tracking-widest border-black border-solid border-2"
                 : index % 2 === 0
-                ? "bg-blue-500 text-white font-bold font-pokemon tracking-widest border-black border-solid border-2" // Blue for even-indexed non-hidden abilities
-                : "bg-blue-300 text-white font-bold font-pokemon tracking-widest border-black border-solid border-2"; // Lighter blue for odd-indexed non-hidden abilities
-
+                ? "bg-blue-500 text-white font-bold font-pokemon tracking-widest border-black border-solid border-2"
+                : "bg-blue-300 text-white font-bold font-pokemon tracking-widest border-black border-solid border-2";
               return (
-                <div key={index} className={` my-1 py-1 rounded-lg ${bgColor}`}>
+                <div
+                  key={index}
+                  className={`my-1 py-1 rounded-lg ${bgColor} transition-all duration-300 ease-in-out hover:scale-[1.02]`}
+                >
                   <span className="capitalize font-bold">
                     {ability.ability.name.charAt(0).toUpperCase() +
                       ability.ability.name.slice(1)}
@@ -139,29 +141,29 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({
 
 const getStatTextColor = (statValue: number) => {
   if (statValue <= 50) {
-    return "text-neutral-700";
+    return "text-gray-900";
   } else if (statValue <= 100) {
-    return "text-lime-700";
+    return "text-green-700";
   } else if (statValue <= 150) {
     return "text-emerald-700";
   } else if (statValue <= 200) {
-    return "text-cyan-700";
+    return "text-blue-700";
   } else {
-    return "text-violet-700";
+    return "text-purple-700";
   }
 };
 
 const getTotalStatsTextColor = (totalStats: number) => {
   if (totalStats <= 300) {
-    return "text-pink-500";
+    return "text-red-700";
   } else if (totalStats <= 400) {
-    return "text-yellow-500";
+    return "text-orange-700";
   } else if (totalStats <= 500) {
-    return "text-green-100";
+    return "text-yellow-700";
   } else if (totalStats <= 600) {
-    return "text-neutral-900";
+    return "text-gray-900";
   } else {
-    return "text-purple-500";
+    return "text-indigo-700";
   }
 };
 
