@@ -51,7 +51,8 @@ const Card: React.FC<CardProps> = ({ url, onOpenPopup }) => {
   return (
     <section>
       <div
-        className="card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl border border-black"
+        className="card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl border border-black 
+        transition-all duration-300 ease-in-out hover:scale-[1.1]"
         onClick={handleCardClick}
       >
         <div className="pokemon-image bg-blue-100 relative">
